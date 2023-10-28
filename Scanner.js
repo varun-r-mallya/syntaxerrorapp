@@ -57,5 +57,7 @@ export default function Scanner({ onScanned }) {
 const styles = StyleSheet.create({
   container: {
     flex: 0.5,
+    flexDirection: 'column',
+    backgroundColor: '#3B4252',
   },
 });
