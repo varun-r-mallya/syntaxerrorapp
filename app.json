@@ -1,0 +1,21 @@
+{
+  "expo": {
+    "name": "testingdaballs",
+    "slug": "testingdaballs",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "expo": {
+      "plugins": [
+        [
+          "expo-barcode-scanner",
+          {
+            "cameraPermission": "Allow $(PRODUCT_NAME) to access camera."
+          }
+        ]
+      ]
+    }
+  }
+  
+}
