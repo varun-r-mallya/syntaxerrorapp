@@ -63,7 +63,7 @@ export default function App() {
       
       
       <TouchableOpacity style={styles.button} onPress={buttonTimeSelect}>
-        <Text style={styles.buttonText}>Press Me to Scan</Text>
+        <Text style={styles.buttonText}>Touch to Scan</Text>
       </TouchableOpacity>
       
     </View>
