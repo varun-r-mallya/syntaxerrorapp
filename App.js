@@ -2,23 +2,19 @@ import { StyleSheet, View, Text, TouchableOpacity, handleButtonPress } from 'rea
 import React, { useState } from 'react';
 import Scanner from './Scanner';
 export default function App() {
-  let enrollment = 2
+  let enrollment = 69
   let name = "namehere"
   return (
       <>
       <View style={styles.container}>
       <Text style={styles.text}>Attendance</Text>
       <View style={styles.rectangle}>
-      {/* <Text style={styles.text1}>Enrollment Number</Text>
-      <Text style={styles.text2}>{enrollment}</Text>
-      <Text style={styles.text3}>Name</Text>
-    <Text style={styles.text4}>{name}</Text> */}
       <Text style={styles.test}>Enrollment Number</Text>
       <Text style={styles.test}>{enrollment}</Text>
       <Text style={styles.test}>Name</Text>
       <Text style={styles.test}>{name}</Text>
       </View>
-    < Scanner />
+      < Scanner />
 
       <TouchableOpacity style={styles.button} onPress={handleButtonPress}>
         <Text style={styles.buttonText}>Press Me</Text>
@@ -39,10 +35,11 @@ const styles = StyleSheet.create({
     flex: 1,
     display:'flex',
     backgroundColor: '#3B4252',
-     alignItems: 'center',
+    // alignItems: 'center',
      justifyContent: 'center',
   },
   rectangle: {
+    fontSize: 59,
     width: 350,
     height: 200,
     backgroundColor: '#808080',

@@ -17,7 +17,15 @@ export default function App() {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    alert(`Scanned!`);
+
+    // Regular expression to check the URL pattern with an 8-character alphanumeric code
+    const urlPattern = /^http:\/\/[a-zA-Z0-9.:]+\/[a-zA-Z0-9]{8}$/;
+
+    if (urlPattern.test(data)) {
+      alert('Success');
+    } else {
+      alert('Wrong QR, scan again');
+    }
   };
 
   if (hasPermission === null) {
@@ -40,10 +48,6 @@ export default function App() {
 
 const styles = StyleSheet.create({
   container: {
-    // display:'flex',
-    //flexDirection: 'row',
     flex: 0.5,
-    flexdirection: 'row',
-    // justifyContent: 'center',
   },
 });
