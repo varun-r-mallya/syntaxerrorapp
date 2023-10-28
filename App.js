@@ -1,7 +1,7 @@
-
-import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native';
 import React, { useState } from 'react';
 import Scanner from './Scanner';
+import PostComponent from './PostComponent';
 
 export default function App() {
   const [enrollment, setEnrollment] = useState(null);
@@ -12,17 +12,23 @@ export default function App() {
   const handleButtonPress = () => {
     // Logic to handle the button press event
     console.log('Scanned Data:', scannedData);
-   
     if(scannedData == "WrongValue") {
       alert("Wrong QR, Scan again!")
     }
     else{
-      alert("Success, attendance was sent. You cannot send another request for the next 30 seconds.")
+      if(scannedData == null)
+      {
+        alert("Please scan QR code first");
+        
+      }
+      else{
+      alert("Scanned")
       setCanPressButton(false);
       setTimeout(() => {
         setCanPressButton(true);
       }, 30000); // 5000 milliseconds = 5 seconds
     }
+  }
   };
   const buttonTimeSelect = () => {
     if(canPressButton)
@@ -36,46 +42,48 @@ export default function App() {
   } 
 
   return (
-    <>
-    <Scanner onScanned={setScannedData} />
-    <View style={styles.container}>
-      <Text style={styles.text}>Attendance</Text>
-      <View style={styles.cuntainer}>
-      <View style={styles.rectangle}>
-        <Text style={styles.test}>Enrollment Number</Text>
-        <TextInput
-          style={styles.input}
-          value={enrollment}
-          placeholder="Enrollment Number here"
-          placeholderTextColor="#cdd0d4"
-          onChangeText={text => setEnrollment(text)}
-        />
-        <Text style={styles.test}>Name</Text>
-        <TextInput
-          style={styles.input}
-          value={name}
-          placeholder="Name here"
-          placeholderTextColor="#cdd0d4"
-          onChangeText={text => setName(text)}
-        />
+    <ScrollView contentContainerStyle={styles.scrollView}>
+      <Scanner onScanned={setScannedData} />
+      <View style={styles.container}>
+        <Text style={styles.text}>Attendance</Text>
+        <View style={styles.cuntainer}>
+          <View style={styles.rectangle}>
+            <Text style={styles.test}>Enrollment Number</Text>
+            <TextInput
+              style={styles.input}
+              value={enrollment}
+              placeholder="Enrollment Number here"
+              placeholderTextColor="#cdd0d4"
+              onChangeText={text => setEnrollment(text)}
+            />
+            <Text style={styles.test}>Name</Text>
+            <TextInput
+              style={styles.input}
+              value={name}
+              placeholder="Name here"
+              placeholderTextColor="#cdd0d4"
+              onChangeText={text => setName(text)}
+            />
+          </View>
+        </View>
+        <TouchableOpacity style={styles.button} onPress={buttonTimeSelect}>
+          <Text style={styles.buttonText}>Touch to Scan</Text>
+        </TouchableOpacity>
+        <PostComponent URL={scannedData} name={name} enrollment={enrollment}  />
       </View>
-      </View>
-      
-      
-      <TouchableOpacity style={styles.button} onPress={buttonTimeSelect}>
-        <Text style={styles.buttonText}>Touch to Scan</Text>
-      </TouchableOpacity>
-      
-    </View>
-    </>
+    </ScrollView>
   );
 }
 
+
 const styles = StyleSheet.create({
+  scrollView: {
+    flexGrow: 1,
+  },
   container: {
     flex: 1,
     backgroundColor: '#3B4252',
-    //alignItems: 'center',
+    alignItems: 'center',
     justifyContent: 'center',
   },
   cuntainer: {
@@ -83,7 +91,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#3B4252',
     alignItems: 'center',
     top: 250,
-    //justifyContent: 'center',
   },
   rectangle: {
     width: '80%',
