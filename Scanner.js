@@ -1,3 +1,8 @@
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
 import React, { useState, useEffect } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
@@ -29,7 +34,9 @@ export default function Scanner({ onScanned }) {
       }
     }
   };
-
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
   useEffect(() => {
     // Reset scanned state after onScanned is called
     if (scanned) {
@@ -56,8 +63,10 @@ export default function Scanner({ onScanned }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.5,
+    flex: 1,
     flexDirection: 'column',
     backgroundColor: '#3B4252',
   },
 });
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering

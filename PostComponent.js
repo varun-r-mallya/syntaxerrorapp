@@ -1,3 +1,7 @@
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
 import React from 'react';
 import { View, Button } from 'react-native';
 
@@ -8,7 +12,7 @@ class PostComponent extends React.Component {
       canPressButton: true
     };
   }
-
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
   sendPostRequest = () => {
     const { name, URL, enrollment } = this.props;
 
@@ -33,12 +37,12 @@ class PostComponent extends React.Component {
         }
       }
     };
-
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
     const buttonTimeSelect = () => {
       if (this.state.canPressButton) {
         handleButtonPress();
       } else {
-        alert("You cannot press this button");
+        alert("Please wait for 30 seconds to send your attendance again");
       }
     };
 
@@ -83,5 +87,6 @@ class PostComponent extends React.Component {
     );
   }
 }
-
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
 export default PostComponent;
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering

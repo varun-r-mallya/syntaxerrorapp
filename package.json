@@ -1,5 +1,5 @@
 {
-  "name": "testingdaballs",
+  "name": "VarunsApp",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,7 @@
   "dependencies": {
     "@types/react": "~18.2.14",
     "expo": "~49.0.15",
-    "expo-barcode-scanner": "^12.7.0",
+    "expo-barcode-scanner": "~12.5.3",
     "expo-splash-screen": "~0.20.5",
     "expo-status-bar": "~1.6.0",
     "firebase": "^10.5.2",

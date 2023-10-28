@@ -1,29 +1,80 @@
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
 import { StyleSheet, View, Text, TouchableOpacity, TextInput, ScrollView } from 'react-native';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Scanner from './Scanner';
 import PostComponent from './PostComponent';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function App() {
-  const [enrollment, setEnrollment] = useState(null);
-  const [name, setName] = useState(null);
+  const [enrollment, setEnrollment] = useState('');
+  const [name, setName] = useState('');
   const [scannedData, setScannedData] = useState(null);
+  const [isDataSaved, setIsDataSaved] = useState(false);
+  const [submitClicked, setSubmitClicked] = useState(false); // New state to track button click
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
+  useEffect(() => {
+    loadData();
+  }, []);
 
-  
+  const loadData = async () => {
+    try {
+      const storedEnrollment = await AsyncStorage.getItem('enrollment');
+      const storedName = await AsyncStorage.getItem('name');
+      if (storedEnrollment && storedName) {
+        setEnrollment(storedEnrollment);
+        setName(storedName);
+        setIsDataSaved(true);
+        setSubmitClicked(true); // Indicate that data has been submitted
+      }
+    } catch (error) {
+      console.log("Error retrieving data: ", error);
+    }
+  };
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
+  const handleEnrollmentChange = text => {
+    if (!submitClicked) {
+      setEnrollment(text);
+      setIsDataSaved(false);
+    }
+  };
+
+  const handleNameChange = text => {
+    if (!submitClicked) {
+      setName(text);
+      setIsDataSaved(false);
+    }
+  };
+
+  const handleDataSubmit = async () => {
+    try {
+      if (enrollment !== '' || name !== '') {
+        if (!isDataSaved && !submitClicked) {
+          await AsyncStorage.setItem('enrollment', enrollment);
+          await AsyncStorage.setItem('name', name);
+          setIsDataSaved(true);
+          setSubmitClicked(true);
+        }
+      }
+    } catch (error) {
+      console.log("Error saving data: ", error);
+    }
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.scrollView}>
+      
       <Scanner onScanned={setScannedData} />
+      <Text style={styles.textattend}></Text>
       <View style={styles.container}>
-        <Text style={styles.text}>Attendance</Text>
-        <View style={styles.cuntainer}>
+        <View style={styles.container}>
           <View style={styles.rectangle}>
             <Text style={styles.test}>Enrollment Number</Text>
             <TextInput
               style={styles.input}
               value={enrollment}
-              placeholder="Enrollment Number here"
+              placeholder="Enrollment Number"
               placeholderTextColor="#cdd0d4"
-              onChangeText={text => setEnrollment(text)}
+              onChangeText={handleEnrollmentChange}
+              editable={!submitClicked} // Enable only if submit is not clicked
             />
             <Text style={styles.test}>Name</Text>
             <TextInput
@@ -31,19 +82,29 @@ export default function App() {
               value={name}
               placeholder="Name here"
               placeholderTextColor="#cdd0d4"
-              onChangeText={text => setName(text)}
+              onChangeText={handleNameChange}
+              editable={!submitClicked} // Enable only if submit is not clicked
             />
+            {(!isDataSaved || !submitClicked) && (
+              <TouchableOpacity
+                style={styles.button}
+                onPress={handleDataSubmit}
+                disabled={submitClicked}
+              >
+                <Text style={styles.buttonText}>Submit</Text>
+              </TouchableOpacity>
+            )}
+            
           </View>
+          <Text style={styles.textattend}>Attendance</Text>
         </View>
-        {/* {<TouchableOpacity style={styles.button} onPress={buttonTimeSelect}>
-          <Text style={styles.buttonText}>Touch to Scan</Text>
-        </TouchableOpacity>} */}
+        
         <PostComponent URL={scannedData} name={name} enrollment={enrollment} />
       </View>
     </ScrollView>
   );
 }
-
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -99,4 +160,13 @@ const styles = StyleSheet.create({
     marginBottom: -150,
     top: 40,
   },
+  textattend: {
+    fontSize: 26,
+    color: 'white',
+    textAlign: 'center',
+    backgroundColor: '#3B4252',
+    marginBottom: -150,
+    top: -400,
+  },
 });
+//BY VARUN R MALLYA IIT Roorkee B. Tech Mechanical Engineering
