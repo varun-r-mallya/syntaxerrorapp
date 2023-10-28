@@ -7,39 +7,8 @@ export default function App() {
   const [enrollment, setEnrollment] = useState(null);
   const [name, setName] = useState(null);
   const [scannedData, setScannedData] = useState(null);
-  const [canPressButton, setCanPressButton] = useState(true);
 
-  const handleButtonPress = () => {
-    // Logic to handle the button press event
-    console.log('Scanned Data:', scannedData);
-    if(scannedData == "WrongValue") {
-      alert("Wrong QR, Scan again!")
-    }
-    else{
-      if(scannedData == null)
-      {
-        alert("Please scan QR code first");
-        
-      }
-      else{
-      alert("Scanned")
-      setCanPressButton(false);
-      setTimeout(() => {
-        setCanPressButton(true);
-      }, 30000); // 5000 milliseconds = 5 seconds
-    }
-  }
-  };
-  const buttonTimeSelect = () => {
-    if(canPressButton)
-    {
-      handleButtonPress();
-    }
-    else
-    {
-      alert("you cannot press this button");
-    }
-  } 
+  
 
   return (
     <ScrollView contentContainerStyle={styles.scrollView}>
@@ -66,10 +35,10 @@ export default function App() {
             />
           </View>
         </View>
-        <TouchableOpacity style={styles.button} onPress={buttonTimeSelect}>
+        {/* {<TouchableOpacity style={styles.button} onPress={buttonTimeSelect}>
           <Text style={styles.buttonText}>Touch to Scan</Text>
-        </TouchableOpacity>
-        <PostComponent URL={scannedData} name={name} enrollment={enrollment}  />
+        </TouchableOpacity>} */}
+        <PostComponent URL={scannedData} name={name} enrollment={enrollment} />
       </View>
     </ScrollView>
   );
