@@ -21,7 +21,7 @@ export default function App() {
       setCanPressButton(false);
       setTimeout(() => {
         setCanPressButton(true);
-      }, 10000); // 5000 milliseconds = 5 seconds
+      }, 30000); // 5000 milliseconds = 5 seconds
     }
   };
   const buttonTimeSelect = () => {
