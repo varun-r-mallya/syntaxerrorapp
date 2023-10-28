@@ -27,12 +27,9 @@ class PostComponent extends React.Component {
         if (URL === null) {
           alert("Please scan QR code first");
         } else {
-          alert("Scanned");
-          this.setCanPressButton(false);
-          setTimeout(() => {
-            this.setCanPressButton(true);
-          }, 30000); // 30000 milliseconds = 30 seconds
+          //alert("Scanned");
           this.makePostRequest(postData);
+          
         }
       }
     };
@@ -64,6 +61,11 @@ class PostComponent extends React.Component {
       .then(data => {
         console.log('POST request successful:', data);
         alert("Success, attendance was sent. You cannot send another request for the next 30 seconds.");
+        this.setCanPressButton(false);
+          setTimeout(() => {
+            this.setCanPressButton(true);
+          }, 30000); // 30000 milliseconds = 30 seconds
+          
         // Handle the response data here if needed
       })
       .catch(error => {
