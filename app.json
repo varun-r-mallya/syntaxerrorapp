@@ -6,20 +6,21 @@
     "assetBundlePatterns": [
       "**/*"
     ],
-    "expo": {
-      "plugins": [
-        [
-          "expo-barcode-scanner",
-          {
-            "cameraPermission": "Allow $(PRODUCT_NAME) to access camera."
-          }
-        ]
+    "plugins": [
+      [
+        "expo-barcode-scanner",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access the camera."
+        }
       ]
-    },
+    ],
     "extra": {
       "eas": {
         "projectId": "f68b3a05-be57-49c3-a64c-c126959cbaa3"
       }
+    },
+    "android": {
+      "package": "com.varunmallya.finalappforsyntax"
     }
   }
 }
