@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
-export default function App() {
+export default function Scanner({ onScanned }) {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
 
@@ -15,18 +15,27 @@ export default function App() {
     getBarCodeScannerPermissions();
   }, []);
 
-  const handleBarCodeScanned = ({ type, data }) => {
-    setScanned(true);
+  const handleBarCodeScanned = ({ data }) => {
+    if (!scanned) {
+      setScanned(true);
 
-    // Regular expression to check the URL pattern with an 8-character alphanumeric code
-    const urlPattern = /^http:\/\/[a-zA-Z0-9.:]+\/[a-zA-Z0-9]{8}$/;
+      // Regular expression to check the URL pattern with an 8-character alphanumeric code
+      const urlPattern = /^http:\/\/[a-zA-Z0-9.:]+\/[a-zA-Z0-9]{8}$/;
 
-    if (urlPattern.test(data)) {
-      alert('Success');
-    } else {
-      alert('Wrong QR, scan again');
+      if (urlPattern.test(data)) {
+        onScanned(data);
+      } else {
+        onScanned("WrongValue");
+      }
     }
   };
+
+  useEffect(() => {
+    // Reset scanned state after onScanned is called
+    if (scanned) {
+      setScanned(false);
+    }
+  }, [scanned, onScanned]);
 
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>;
@@ -41,7 +50,6 @@ export default function App() {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={StyleSheet.absoluteFillObject}
       />
-      {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
     </View>
   );
 }

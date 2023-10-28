@@ -1,90 +1,104 @@
-import { StyleSheet, View, Text, TouchableOpacity, handleButtonPress } from 'react-native';
+
+import { StyleSheet, View, Text, TouchableOpacity, TextInput } from 'react-native';
 import React, { useState } from 'react';
 import Scanner from './Scanner';
-export default function App() {
-  let enrollment = 69
-  let name = "namehere"
-  return (
-      <>
-      <View style={styles.container}>
-      <Text style={styles.text}>Attendance</Text>
-      <View style={styles.rectangle}>
-      <Text style={styles.test}>Enrollment Number</Text>
-      <Text style={styles.test}>{enrollment}</Text>
-      <Text style={styles.test}>Name</Text>
-      <Text style={styles.test}>{name}</Text>
-      </View>
-      < Scanner />
 
-      <TouchableOpacity style={styles.button} onPress={handleButtonPress}>
-        <Text style={styles.buttonText}>Press Me</Text>
-      </TouchableOpacity>
+export default function App() {
+  const [enrollment, setEnrollment] = useState('Enrollment number here');
+  const [name, setName] = useState('Name here');
+  const [scannedData, setScannedData] = useState(null);
+  const [canPressButton, setCanPressButton] = useState(true);
+
+  const handleButtonPress = () => {
+    // Logic to handle the button press event
+    console.log('Scanned Data:', scannedData);
+   
+    if(scannedData == "WrongValue") {
+      alert("Wrong QR, Scan again!")
+    }
+    else{
+      alert("Success, attendance was sent. You cannot send another request for the next 30 seconds.")
+      setCanPressButton(false);
+      setTimeout(() => {
+        setCanPressButton(true);
+      }, 10000); // 5000 milliseconds = 5 seconds
+    }
+  };
+  const buttonTimeSelect = () => {
+    if(canPressButton)
+    {
+      handleButtonPress();
+    }
+    else
+    {
+      alert("you cannot press this button");
+    }
+  } 
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Attendance</Text>
+      <View style={styles.cuntainer}>
+      <View style={styles.rectangle}>
+        <Text style={styles.test}>Enrollment Number</Text>
+        <TextInput
+          style={styles.input}
+          value={enrollment}
+          onChangeText={text => setEnrollment(text)}
+        />
+        <Text style={styles.test}>Name</Text>
+        <TextInput
+          style={styles.input}
+          value={name}
+          onChangeText={text => setName(text)}
+        />
       </View>
-     </>
+      </View>
+      <Scanner onScanned={setScannedData} />
+      
+      <TouchableOpacity style={styles.button} onPress={buttonTimeSelect}>
+        <Text style={styles.buttonText}>Press Me to Scan</Text>
+      </TouchableOpacity>
+      
+    </View>
   );
 }
 
-
-
 const styles = StyleSheet.create({
-  test: {
-    fontSize: 26,
-    color: 'white',
-  },
   container: {
     flex: 1,
-    display:'flex',
     backgroundColor: '#3B4252',
-    // alignItems: 'center',
-     justifyContent: 'center',
+    //alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cuntainer: {
+    flex: 1,
+    backgroundColor: '#3B4252',
+    alignItems: 'center',
+    top: 250,
+    //justifyContent: 'center',
   },
   rectangle: {
-    fontSize: 59,
-    width: 350,
-    height: 200,
+    width: '80%',
     backgroundColor: '#808080',
-    // top: -150,
+    padding: 20,
+    borderRadius: 10,
+    marginBottom: 20,
   },
-  text: {
-    fontSize: 26,
+  test: {
+    fontSize: 18,
     color: 'white',
-    alignItems: 'center',
-    position: 'absolute',
-    top: 60,
-    fontSize: 24,
+    alignContent: 'center',
+    marginBottom: 5,
   },
-  text1: {
-    fontSize: 26,
+  input: {
+    height: 40,
+    borderColor: 'white',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
     color: 'white',
-    alignItems: 'flex-start',
-    position: 'absolute',
-    // top: 150,
-    fontSize: 24,
-  },
-  text2: {
-    fontSize: 26,
-    color: 'white',
-    alignItems: 'center',
-    position: 'absolute',
-    // position: 'relative',
-    // top: 200,
-    fontSize: 24,
-  },
-  text3: {
-    fontSize: 26,
-    color: 'white',
-    alignItems: 'flex-start',
-    position: 'absolute',
-    // top: 250,
-    fontSize: 24,
-  },
-  text4: {
-    fontSize: 26,
-    color: 'white',
-    alignItems: 'flex-start',
-    position: 'absolute',
-    // top: 300,
-    fontSize: 24,
+    marginBottom: 10,
   },
   button: {
     backgroundColor: 'blue',
@@ -95,5 +109,11 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
   },
-
+  text: {
+    fontSize: 26,
+    color: 'white',
+    textAlign: 'center',
+    marginBottom: -150,
+    top: 40,
+  },
 });
